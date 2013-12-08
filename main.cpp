@@ -58,9 +58,7 @@ int main(){
                 if(event.type == sf::Event::Closed){
                     window.close();
                 }
-                window.display();
                 window.clear();
-
 
                 if(event.type == sf::Event::KeyPressed){
                     if(event.key.code == sf::Keyboard::Space){
@@ -92,7 +90,6 @@ int main(){
                 //draw player
                 drawPlayer(tilemap, tiles, window, player);
 
-
                 text.setColor(sf::Color(255,255,255));
                 std::string tmp;
                 std::string tmp2;
@@ -103,7 +100,7 @@ int main(){
                 text.setString(tmp += tmp2);
                 window.draw(text);
 
-                playerOnExit(player, exit);
+                window.display();
             }
         }
         window.close();

@@ -5,10 +5,6 @@
 
 using namespace std;
 
-//sf::Texture tilemap;
-//sf::Sprite tiles;
-//sf::RenderWindow window;
-
 void drawPlayer(sf::Texture& tilemap, sf::Sprite& tiles, sf::RenderWindow& window, Player& player){
     int pdir;
     if(player.get_dir() == 8){
