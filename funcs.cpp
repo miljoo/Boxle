@@ -5,6 +5,47 @@
 
 using namespace std;
 
+//sf::Texture tilemap;
+//sf::Sprite tiles;
+//sf::RenderWindow window;
+
+void drawPlayer(sf::Texture& tilemap, sf::Sprite& tiles, sf::RenderWindow& window, Player& player){
+    int pdir;
+    if(player.get_dir() == 8){
+        pdir = 1;
+    }else if(player.get_dir() == 4){
+        pdir = 2;
+    }else if(player.get_dir() == 2){
+        pdir = 3;
+    }else if(player.get_dir() == 6){
+        pdir = 4;
+    }
+    tiles.setTextureRect(sf::IntRect(pdir*TILESIZE, TILESIZE*player.get_z(), TILESIZE, TILESIZE));
+    tiles.setTexture(tilemap);
+    tiles.setPosition(player.get_x()*TILESIZE, player.get_y()*TILESIZE);
+    window.draw(tiles);
+}
+
+void drawExit(sf::Texture& tilemap, sf::Sprite& tiles, sf::RenderWindow& window, Exit& exit){
+    tiles.setTextureRect(sf::IntRect(5*TILESIZE, TILESIZE*exit.get_z(), TILESIZE, TILESIZE));
+    tiles.setTexture(tilemap);
+    tiles.setPosition(exit.get_x()*TILESIZE, exit.get_y()*TILESIZE);
+    window.draw(tiles);
+
+}
+
+void drawMap(sf::Texture& tilemap, sf::Sprite& tiles, sf::RenderWindow& window, int array[WIDTH][HEIGHT]){
+ int i , j;
+    for(j = 1 ; j < HEIGHT - 1 ; j++){
+        for(i = 1; i < WIDTH - 1 ; i++){
+            tiles.setTextureRect(sf::IntRect(0, (TILESIZE*array[i][j]), TILESIZE, TILESIZE));
+            tiles.setTexture(tilemap);
+            tiles.setPosition(i*TILESIZE, j*TILESIZE);
+            window.draw(tiles);
+        }
+    }
+}
+
 void move(int cmd, Player& player, int array[WIDTH][HEIGHT]){
 
 	if(cmd != player.get_dir()){
@@ -128,80 +169,12 @@ void push(Player player, int array[WIDTH][HEIGHT]){
 	}
 }
 
-void addPE(Player player, Exit exit, char a[WIDTH][HEIGHT]){ //lisää pelaajan ja exitin kartalle
-	//add exit
-	a[exit.get_x()][exit.get_y()] = 'E';
-
-	//add player
-	a[player.get_x()][player.get_y()] = 'P';
-	/*
-	if(player.get_dir() == 8){
-		a[player.get_x()][player.get_y()] = 'A';
-	}
-	else if (player.get_dir() == 6){
-		a[player.get_x()][player.get_y()] = '>';
-	}
-	else if (player.get_dir() == 2){
-		a[player.get_x()][player.get_y()] = 'V';
-	}
-	else{
-		a[player.get_x()][player.get_y()] = '<';
-	}
-	*/
-}
-
-void charray(int i[WIDTH][HEIGHT], char a[WIDTH][HEIGHT]){ //lisää 48 int mappiin
-	int x;
-	int y;
-	for(y = 0 ; y < HEIGHT ; y++){
-		for(x = 0 ; x < WIDTH ; x++){
-			a[x][y] = (char) i[x][y] + 48;
-		}
-	}
-}
-
-void printMap(char a[WIDTH][HEIGHT]){ //tulostaa kartan
-	int x;
-	int y;
-
-	for(y = 0; y < HEIGHT; y++){
-		for(x = 0; x < WIDTH; x++){
-			if( x < WIDTH - 1){
-				cout << a[x][y];
-			}
-			else{
-				cout << a[x][y] << endl;
-			}
-		}
-	}
-}
-
 int playerOnExit(Player player, Exit exit){
 
 	if(player.get_x() == exit.get_x() && player.get_y() == exit.get_y()){
 		return 1;
 	}
 	else return 0;
-}
-
-void printArray(int array[WIDTH][HEIGHT]){
-    int i,j;
-    for(j = 0 ; j < HEIGHT ; j++){
-        for(i = 0 ; i < WIDTH ; i++){
-            if(i == WIDTH - 1){
-                cout << array[i][j] << endl;
-            }
-            else{
-                cout << array[i][j] << ' ';
-            }
-        }
-    }
-
-}
-
-void clearScreen()
-{
-    cout << string( 100, '\n' );
 }
 
 void exit(){

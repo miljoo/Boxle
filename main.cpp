@@ -6,8 +6,6 @@
 #include "exit.h"
 #include "funcs.h"
 
-#define TILESIZE 64
-
 using namespace std;
 
 int main(){
@@ -49,8 +47,6 @@ int main(){
     text.setCharacterSize(36);
 
 
-
-
     while(window.isOpen()){
        sf::Event event;
        while(!playerOnExit(player, exit)){
@@ -90,37 +86,12 @@ int main(){
                 exit.set_z(exit.get_x(),exit.get_y(),a);
 
                 //draw map
-                int i , j;
-                for(j = 1 ; j < HEIGHT - 1 ; j++){
-                    for(i = 1; i < WIDTH - 1 ; i++){
-                        tiles.setTextureRect(sf::IntRect(0, (TILESIZE*a[i][j]), TILESIZE, TILESIZE));
-                        tiles.setTexture(tilemap);
-                        tiles.setPosition(i*TILESIZE, j*TILESIZE);
-                        window.draw(tiles);
-                    }
-                }
-
+                drawMap(tilemap, tiles, window ,a);
                 //draw exit
-                tiles.setTextureRect(sf::IntRect(5*TILESIZE, TILESIZE*exit.get_z(), TILESIZE, TILESIZE));
-                tiles.setTexture(tilemap);
-                tiles.setPosition(exit.get_x()*TILESIZE, exit.get_y()*TILESIZE);
-                window.draw(tiles);
-
+                drawExit(tilemap, tiles, window, exit);
                 //draw player
-                int pdir;
-                if(player.get_dir() == 8){
-                    pdir = 1;
-                }else if(player.get_dir() == 4){
-                    pdir = 2;
-                }else if(player.get_dir() == 2){
-                    pdir = 3;
-                }else if(player.get_dir() == 6){
-                    pdir = 4;
-                }
-                tiles.setTextureRect(sf::IntRect(pdir*TILESIZE, TILESIZE*player.get_z(), TILESIZE, TILESIZE));
-                tiles.setTexture(tilemap);
-                tiles.setPosition(player.get_x()*TILESIZE, player.get_y()*TILESIZE);
-                window.draw(tiles);
+                drawPlayer(tilemap, tiles, window, player);
+
 
                 text.setColor(sf::Color(255,255,255));
                 std::string tmp;
