@@ -12,7 +12,6 @@ using namespace std;
 
 int main(){
 
-    char c[WIDTH][HEIGHT];
     int a[WIDTH][HEIGHT] = {{9,9,9,9,9,9,9,9,9,9},
                             {9,9,9,9,9,9,9,9,9,9},
                             {9,9,0,1,1,0,0,7,9,9},
@@ -30,16 +29,15 @@ int main(){
     player.set_z(player.get_x(),player.get_y(),a);
     player.set_dir(8);
 
-    charray(a,c);
-    addPE(player, exit, c);
-
     sf::RenderWindow window;
-    window.create(sf::VideoMode(700,700), "Boxle a0.1");
+
+    window.create(sf::VideoMode(700,700), "Boxle a0.2");
     window.setKeyRepeatEnabled(false);
+    window.setFramerateLimit(30);
 
     sf::Texture tilemap;
     sf::Sprite tiles;
-    if(!tilemap.loadFromFile("gblue.png"))
+    if(!tilemap.loadFromFile("invisgblue2.png"))
         std::cout << "Error loading tileset" << std::endl;
 
 
@@ -56,6 +54,9 @@ int main(){
     while(window.isOpen()){
        sf::Event event;
        while(!playerOnExit(player, exit)){
+
+            sf::sleep(sf::Time(sf::seconds(0.1f)));
+
             while(window.pollEvent(event)){
 
                 if(event.type == sf::Event::Closed){
@@ -63,6 +64,7 @@ int main(){
                 }
                 window.display();
                 window.clear();
+
 
                 if(event.type == sf::Event::KeyPressed){
                     if(event.key.code == sf::Keyboard::Space){
@@ -85,46 +87,40 @@ int main(){
                     }
                 }
 
-                exit.set_z(exit.get_x(),exit.get_y(),a); //mabby somedya clean up not so tired derp :P
-                charray(a,c);
-                addPE(player, exit,c);
+                exit.set_z(exit.get_x(),exit.get_y(),a);
 
-                for(int j = 1 ; j < HEIGHT - 1 ; j++){
-                    for(int i = 1; i < WIDTH - 1 ; i++){
-                        if(c[i][j] != 'P' && c[i][j] != 'E' && c[i][j] != '9'){
-                            tiles.setTextureRect(sf::IntRect(0, (TILESIZE*a[i][j]), TILESIZE, TILESIZE));
-                            tiles.setTexture(tilemap);
-                            tiles.setPosition(i*TILESIZE, j*TILESIZE);
-                            window.draw(tiles);
-                        }
-                        else if(c[i][j] == 'P'){
-                            int pdir;
-                            if(player.get_dir() == 8){
-                                pdir = 1;
-                            }else if(player.get_dir() == 4){
-                                pdir = 2;
-                            }else if(player.get_dir() == 2){
-                                pdir = 3;
-                            }else if(player.get_dir() == 6){
-                                pdir = 4;
-                            }
-                            tiles.setTextureRect(sf::IntRect(pdir*TILESIZE, TILESIZE*player.get_z(), TILESIZE, TILESIZE));
-                            tiles.setTexture(tilemap);
-                            tiles.setPosition(i*TILESIZE, j*TILESIZE);
-                            window.draw(tiles);
-                        }else if(c[i][j] == 'E'){
-                            tiles.setTextureRect(sf::IntRect(5*TILESIZE, TILESIZE*exit.get_z(), TILESIZE, TILESIZE));
-                            tiles.setTexture(tilemap);
-                            tiles.setPosition(i*TILESIZE, j*TILESIZE);
-                            window.draw(tiles);
-                        }else if(c[i][j] == '9'){
-                            tiles.setTextureRect(sf::IntRect(6*TILESIZE, 0, TILESIZE, TILESIZE));
-                            tiles.setTexture(tilemap);
-                            tiles.setPosition(i*TILESIZE, j*TILESIZE);
-                            window.draw(tiles);
-                        }
+                //draw map
+                int i , j;
+                for(j = 1 ; j < HEIGHT - 1 ; j++){
+                    for(i = 1; i < WIDTH - 1 ; i++){
+                        tiles.setTextureRect(sf::IntRect(0, (TILESIZE*a[i][j]), TILESIZE, TILESIZE));
+                        tiles.setTexture(tilemap);
+                        tiles.setPosition(i*TILESIZE, j*TILESIZE);
+                        window.draw(tiles);
                     }
                 }
+
+                //draw exit
+                tiles.setTextureRect(sf::IntRect(5*TILESIZE, TILESIZE*exit.get_z(), TILESIZE, TILESIZE));
+                tiles.setTexture(tilemap);
+                tiles.setPosition(exit.get_x()*TILESIZE, exit.get_y()*TILESIZE);
+                window.draw(tiles);
+
+                //draw player
+                int pdir;
+                if(player.get_dir() == 8){
+                    pdir = 1;
+                }else if(player.get_dir() == 4){
+                    pdir = 2;
+                }else if(player.get_dir() == 2){
+                    pdir = 3;
+                }else if(player.get_dir() == 6){
+                    pdir = 4;
+                }
+                tiles.setTextureRect(sf::IntRect(pdir*TILESIZE, TILESIZE*player.get_z(), TILESIZE, TILESIZE));
+                tiles.setTexture(tilemap);
+                tiles.setPosition(player.get_x()*TILESIZE, player.get_y()*TILESIZE);
+                window.draw(tiles);
 
                 text.setColor(sf::Color(255,255,255));
                 std::string tmp;
@@ -135,6 +131,7 @@ int main(){
                 tmp2 += (char)exit.get_z() + 48;
                 text.setString(tmp += tmp2);
                 window.draw(text);
+
                 playerOnExit(player, exit);
             }
         }
