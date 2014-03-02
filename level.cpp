@@ -1,7 +1,31 @@
 #include "level.h"
 
-void Level::loadLevel(ifstream& file, Level& level, Player player, Exit exit){
+void Level::loadLevel(ifstream& file, Level& level, Player& player, Exit& exit){
     string page, line, pxyz, exyz, h, w, lvl;
+    int px, py, pz, ex, ey, ez;
+
+    vector<int>::iterator it_x;
+    vector< vector<int> >::iterator it_y;
+
+    for (it_y = y.begin(); it_y != y.end(); it_y++) {
+        for (it_x = it_y->begin(); it_x != it_y->end(); it_x++) {
+            cout << *it_x << " " ;
+        }
+    }
+
+
+    cout << "clearing level data" << endl;
+
+    level.x.clear();
+    level.y.clear();
+
+    cout << "level data cleared" << endl;
+
+    for (it_y = y.begin(); it_y != y.end(); it_y++) {
+        for (it_x = it_y->begin(); it_x != it_y->end(); it_x++) {
+            cout << *it_x << " " ;
+        }
+    }
 
     int tint;
 
@@ -19,15 +43,20 @@ void Level::loadLevel(ifstream& file, Level& level, Player player, Exit exit){
 
     lvl = find_field(page, "Map");
 
+    stringstream ps(pxyz);
+    stringstream es(exyz);
     stringstream ss(lvl);
 
-    player.set_x(pxyz[0]);
-    player.set_x(pxyz[2]);
-    player.set_x(pxyz[4]);
+    ps >> px >> py >> pz;
+    es >> ex >> ey >> ez;
 
-    exit.set_x(exyz[0]);
-    exit.set_x(exyz[2]);
-    exit.set_x(exyz[4]);
+    player.set_x(px);
+    player.set_y(py);
+    player.set_z(pz);
+
+    exit.set_x(ex);
+    exit.set_y(ey);
+    exit.set_z(ez);
 
 
     for(int j = 0; j < level.getHeight(); j++){
@@ -40,11 +69,16 @@ void Level::loadLevel(ifstream& file, Level& level, Player player, Exit exit){
                 else{
                     i++;
                 }
-
-
         }
         level.y.push_back(level.x);
         level.x.clear();
+    }
+    cout << "level loaded" << endl;
+
+    for (it_y = y.begin(); it_y != y.end(); it_y++) {
+        for (it_x = it_y->begin(); it_x != it_y->end(); it_x++) {
+            cout << *it_x << " " ;
+        }
     }
  }
 
@@ -68,6 +102,9 @@ void Level::saveMap(ofstream& file, Level level ,Player player, Exit exit){
 }
 
 Level::Level(int width, int height, string name){
+
+    cout << "level init" << endl;
+
 	for(int j = 0 ; j < height; j++){
         for(int i = 0; i < width ; i++){
             x.push_back(0);

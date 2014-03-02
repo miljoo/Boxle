@@ -25,7 +25,7 @@ public:
     void setWidth(int value);
 	void setHeight(int value);
 
-	void loadLevel(ifstream& file, Level& level, Player player, Exit exit);
+	void loadLevel(ifstream& file, Level& level, Player& player, Exit& exit);
 	void saveMap(ofstream& file, Level level, Player player, Exit exit);
 
     vector< vector<int> > y;

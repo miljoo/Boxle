@@ -38,8 +38,8 @@ int Player::get_dir(){
 	return dir;
 }
 
-void Player::set_z(int x, int y, int array[WIDTH][HEIGHT]){
-	z = array[x][y];
+void Player::set_z(int x, int y, vector< vector<int>> varray){
+	z = varray[x][y];
 }
 
 void Player::set_dir(int value){

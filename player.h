@@ -2,6 +2,9 @@
 #define PLAYER_H
 
 #include "mapdef.h"
+#include <vector>
+
+using namespace std;
 
 
 class Player{
@@ -15,7 +18,7 @@ public:
 	int get_tz();
 	int get_dir();
 
-	void set_z(int x, int y, int array[WIDTH][HEIGHT]);
+	void set_z(int x, int y, vector< vector<int>> varray);
 
 	void set_dir(int value);
 	void set_x(int value);

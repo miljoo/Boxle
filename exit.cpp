@@ -18,8 +18,8 @@ int Exit::get_z(){
 	return z;
 }
 
-void Exit::set_z(int x, int y, int array[WIDTH][HEIGHT]){
-	z = array[x][y];
+void Exit::set_z(int x, int y, vector< vector<int>> varray){
+	z = varray[x][y];
 }
 
 void Exit::set_x(int value){

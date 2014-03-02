@@ -2,6 +2,9 @@
 #define EXIT_H
 
 #include "mapdef.h"
+#include <vector>
+
+using namespace std;
 
 class Exit{
 public:
@@ -10,7 +13,7 @@ public:
 	int get_y();
 	int get_z();
 
-	void set_z(int x, int y, int array[WIDTH][HEIGHT]);
+	void set_z(int x, int y, vector< vector<int>> varray);
 
 	void set_x(int value);
 	void set_y(int value);
