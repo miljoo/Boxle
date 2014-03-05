@@ -1,0 +1,6 @@
+<Name>kolme</Name>
+<Height>6</Height>
+<Width>6</Width>
+<Player>0 0 0</Player>
+<Exit>5 0 3</Exit>
+<Map>0 1 2 3 4 5 0 0 0 0 0 8 0 6 7 6 6 4 2 0 0 0 0 7 3 0 1 0 0 6 3 0 2 3 4 5 </Map>

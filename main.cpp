@@ -13,7 +13,7 @@
 using namespace std;
 
 int main(){
-
+    int levelCount = 0;
     Level level(9,10, "default");
     Player player(1,1);
     player.set_dir(8);
@@ -30,18 +30,18 @@ int main(){
 
     sf::Texture tilemap;
     sf::Sprite tiles;
-    if(!tilemap.loadFromFile("invisgblue2.png")){
+    if(!tilemap.loadFromFile("data/tilemap.png")){
         cout << "Error loading tileset" << endl;
     }
 
     sf::Texture instruction_picture;
     sf::Sprite instruction_pic;
-    if(!instruction_picture.loadFromFile("instructions.png")){
+    if(!instruction_picture.loadFromFile("data/instructions.png")){
         cout << "Error loading instruction pic" << endl;
     }
 
     sf::Font font;
-    if(!font.loadFromFile("tahomabd.ttf")){
+    if(!font.loadFromFile("data/tahomabd.ttf")){
         cout << "error loading font" << endl;
     }
 
@@ -100,62 +100,133 @@ int main(){
 
             switch(selection){
                 case 1:
-                    cout << "P:" << player.get_x() << "," << player.get_y() << endl;
-                    cout << "E:" << exit.get_x() << "," << exit.get_y() << endl;
 
-                    ifile.open("default.lvl");
-                    if(ifile.is_open()){
-                        level.loadLevel(ifile, level, player,exit);
-                        ifile.close();
-                    }
-                    else{
-                        cout << "default.lvl not opened" << endl;
-                    }
 
-                    cout << "P:" << player.get_x() << "," << player.get_y() << endl;
-                    cout << "E:" << exit.get_x() << "," << exit.get_y() << endl;
                     escInGame = 1;
-
-                    while(!playerOnExit(player, exit) && escInGame == 1){
-
-                        sf::sleep(sf::Time(sf::seconds(0.1f)));
-
-                        while(window.pollEvent(event)){
-
-                            if(event.type == sf::Event::Closed){
-                                window.close();
+                    while(levelCount < 8 && escInGame == 1){
+                        player.set_x(1);
+                        exit.set_x(2);
+                        //load map
+                        if(levelCount == 0){
+                            ifile.open("data/levels/yksi.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
                             }
-                            window.clear();
-
-                            if(event.type == sf::Event::KeyPressed){
-                                if(event.key.code == sf::Keyboard::Space){
-                                    push(player, level, level.y);
-                                }
-                                if(event.key.code == sf::Keyboard::Escape){
-                                    selection = 0;
-                                    escInGame = 0;
-                                }
-                                if(event.key.code == sf::Keyboard::Up){
-                                    move(8, player, level, level.y);
-                                }
-                                if(event.key.code == sf::Keyboard::Down){
-                                    move(2, player, level, level.y);
-                                }
-                                if(event.key.code == sf::Keyboard::Left){
-                                    move(4, player, level, level.y);
-                                }
-                                if(event.key.code == sf::Keyboard::Right){
-                                    move(6, player, level, level.y);
-                                }
+                            else{
+                                cout << "yksi.lvl not opened" << endl;
                             }
-                            exit.set_z(exit.get_x(),exit.get_y(),level.y);
-                            //draw map
-                            drawMap(tilemap, tiles, window ,level);
-                            //draw exit
-                            drawExit(tilemap, tiles, window, exit);
-                            //draw player
-                            drawPlayer(tilemap, tiles, window, player);
-                            window.display();
+                        }else if(levelCount == 1){
+                            ifile.open("data/levels/kaksi.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "kaksi.lvl not opened" << endl;
+                            }
+                        }else if(levelCount == 2){
+                            ifile.open("data/levels/kolme.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "kolme.lvl not opened" << endl;
+                            }
+                        }else if(levelCount == 3){
+                            ifile.open("data/levels/nelja.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "nelja.lvl not opened" << endl;
+                            }
+                        }else if(levelCount == 4){
+                            ifile.open("data/levels/viisi.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "viisi.lvl not opened" << endl;
+                            }
+                        }else if(levelCount == 5){
+                            ifile.open("data/levels/kuusi.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "kuusi.lvl not opened" << endl;
+                            }
+                        }else if(levelCount == 6){
+                            ifile.open("data/levels/seiska.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "seiska.lvl not opened" << endl;
+                            }
+                        }else if(levelCount == 7){
+                            ifile.open("data/levels/kasi.lvl");
+                            if(ifile.is_open()){
+                                level.loadLevel(ifile, level, player,exit);
+                                ifile.close();
+                            }
+                            else{
+                                cout << "kasi.lvl not opened" << endl;
+                            }
+                        }
+                        cout << level.getName();
+
+                        while(!playerOnExit(player, exit) && escInGame == 1){
+
+                            sf::sleep(sf::Time(sf::seconds(0.1f)));
+
+                            while(window.pollEvent(event)){
+
+                                if(event.type == sf::Event::Closed){
+                                    window.close();
+                                }
+                                window.clear();
+
+                                if(event.type == sf::Event::KeyPressed){
+                                    if(event.key.code == sf::Keyboard::Space){
+                                        push(player, level, level.y);
+                                    }
+                                    if(event.key.code == sf::Keyboard::Escape){
+                                        selection = 0;
+                                        escInGame = 0;
+                                    }
+                                    if(event.key.code == sf::Keyboard::Up){
+                                        move(8, player, level, level.y);
+                                    }
+                                    if(event.key.code == sf::Keyboard::Down){
+                                        move(2, player, level, level.y);
+                                    }
+                                    if(event.key.code == sf::Keyboard::Left){
+                                        move(4, player, level, level.y);
+                                    }
+                                    if(event.key.code == sf::Keyboard::Right){
+                                        move(6, player, level, level.y);
+                                    }
+                                }
+
+                                exit.set_z(exit.get_x(),exit.get_y(),level.y);
+                                //draw map
+                                drawMap(tilemap, tiles, window ,level);
+                                //draw exit
+                                drawExit(tilemap, tiles, window, exit);
+                                //draw player
+                                drawPlayer(tilemap, tiles, window, player);
+                                window.display();
+                            }
+                            if(playerOnExit(player, exit)){
+                                    levelCount++;
+                            }
                         }
                     }
                     selection = 0;

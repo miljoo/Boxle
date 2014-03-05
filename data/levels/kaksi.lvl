@@ -1,0 +1,6 @@
+<Name>kaksi</Name>
+<Height>5</Height>
+<Width>6</Width>
+<Player>0 5 0</Player>
+<Exit>4 5 3</Exit>
+<Map>9 0 0 0 0 0 9 9 9 9 9 0 2 0 0 0 0 0 3 9 9 9 9 9 3 3 0 3 3 3 </Map>

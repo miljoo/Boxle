@@ -84,14 +84,14 @@ void move(int cmd, Player& player, Level level, vector< vector<int>>& varray){
                 player.set_z(player.get_z() + 1);
                 player.set_y(player.get_ty());
             }
-            else if(player.get_ty() <= level.getWidth()){
+            else if(player.get_ty() <= level.getWidth() - 1){
                 if(player.get_z() >= varray[player.get_x()][player.get_ty()]){
                     player.set_z(varray[player.get_x()][player.get_ty()]);
                     player.set_y(player.get_ty());
                 }
                 else{
                     if(player.get_ty() < level.getWidth()){
-                        if(player.get_z() >= varray[player.get_x()][player.get_ty() + 1] && player.get_ty() <= (level.getWidth() - 1)){
+                        if(player.get_z() >= varray[player.get_x()][player.get_ty() + 1] && player.get_ty() <= (level.getWidth() - 2)){
                             player.set_y(player.get_ty());
                             int temp = varray[player.get_x()][player.get_y()] - player.get_z();
                             varray[player.get_x()][player.get_y()] = player.get_z();
@@ -112,14 +112,14 @@ void move(int cmd, Player& player, Level level, vector< vector<int>>& varray){
                 player.set_z(player.get_z() + 1);
                 player.set_x(player.get_tx());
             }
-			else if(player.get_tx() <= level.getHeight()){
+			else if(player.get_tx() <= level.getHeight() - 1){
                 if(player.get_z() >= varray[player.get_tx()][player.get_y()]){
                     player.set_z(varray[player.get_tx()][player.get_y()]);
                     player.set_x(player.get_tx());
                 }
                 else{
                     if(player.get_tx() < level.getHeight()){
-                        if(player.get_z() >= varray[player.get_tx() + 1][player.get_y()] && player.get_tx() <= (level.getHeight() - 1)){
+                        if(player.get_z() >= varray[player.get_tx() + 1][player.get_y()] && player.get_tx() <= (level.getHeight() - 2)){
                             player.set_x(player.get_tx());
                             int temp = varray[player.get_x()][player.get_y()] - player.get_z();
                             varray[player.get_x()][player.get_y()] = player.get_z();

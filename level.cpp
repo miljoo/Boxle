@@ -7,25 +7,8 @@ void Level::loadLevel(ifstream& file, Level& level, Player& player, Exit& exit){
     vector<int>::iterator it_x;
     vector< vector<int> >::iterator it_y;
 
-    for (it_y = y.begin(); it_y != y.end(); it_y++) {
-        for (it_x = it_y->begin(); it_x != it_y->end(); it_x++) {
-            cout << *it_x << " " ;
-        }
-    }
-
-
-    cout << "clearing level data" << endl;
-
     level.x.clear();
     level.y.clear();
-
-    cout << "level data cleared" << endl;
-
-    for (it_y = y.begin(); it_y != y.end(); it_y++) {
-        for (it_x = it_y->begin(); it_x != it_y->end(); it_x++) {
-            cout << *it_x << " " ;
-        }
-    }
 
     int tint;
 
@@ -73,14 +56,7 @@ void Level::loadLevel(ifstream& file, Level& level, Player& player, Exit& exit){
         level.y.push_back(level.x);
         level.x.clear();
     }
-    cout << "level loaded" << endl;
-
-    for (it_y = y.begin(); it_y != y.end(); it_y++) {
-        for (it_x = it_y->begin(); it_x != it_y->end(); it_x++) {
-            cout << *it_x << " " ;
-        }
-    }
- }
+}
 
 void Level::saveMap(ofstream& file, Level level ,Player player, Exit exit){
     vector<int>::iterator it_x;
