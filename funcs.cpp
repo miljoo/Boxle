@@ -166,7 +166,7 @@ void move(int cmd, Player& player, Level level, vector< vector<int>>& varray){
 
 void push(Player player, Level level, vector< vector<int> >& varray){
 	if(player.get_dir() == 8){
-        if((player.get_y() - 2) >= 1){
+        if((player.get_y() - 1) >= 1){
             if((varray[player.get_x()][player.get_y()] >= varray[player.get_x()][player.get_y() - 2]) && (varray[player.get_x()][player.get_y()] < varray[player.get_x()][player.get_y() - 1])){
                 varray[player.get_x()][player.get_y() - 2] += 1;
                 varray[player.get_x()][player.get_y() - 1] -= 1;
@@ -175,7 +175,7 @@ void push(Player player, Level level, vector< vector<int> >& varray){
 	}
 
     else if(player.get_dir() == 2){
-        if((player.get_y() + 2) < (level.getWidth() -1)){
+        if((player.get_y() + 1) < (level.getWidth() -1)){
             if((varray[player.get_x()][player.get_y()] >= varray[player.get_x()][player.get_y() + 2]) && (varray[player.get_x()][player.get_y()] < varray[player.get_x()][player.get_y() + 1])){
                 varray[player.get_x()][player.get_y() + 2] += 1;
                 varray[player.get_x()][player.get_y() + 1] -= 1;
@@ -184,7 +184,7 @@ void push(Player player, Level level, vector< vector<int> >& varray){
 	}
 
 	else if(player.get_dir() == 6){
-        if((player.get_x() + 2) <= (level.getHeight() -1)){
+        if((player.get_x() + 1) <= (level.getHeight() -1)){
             if( (varray[player.get_x()][player.get_y()] >= varray[player.get_x() + 2][player.get_y()]) && (varray[player.get_x()][player.get_y()] < varray[player.get_x() + 1][player.get_y()]) ){
                 varray[player.get_x() + 2][player.get_y()] += 1;
                 varray[player.get_x() + 1][player.get_y()] -= 1;
@@ -193,7 +193,7 @@ void push(Player player, Level level, vector< vector<int> >& varray){
 	}
 
 	else if(player.get_dir() == 4){
-        if((player.get_x() - 2) >= 1){
+        if((player.get_x() - 1) >= 1){
             if( (varray[player.get_x()][player.get_y()] >= varray[player.get_x() - 2][player.get_y()]) && (varray[player.get_x()][player.get_y()] < varray[player.get_x() - 1][player.get_y()]) ){
                 varray[player.get_x() - 2][player.get_y()] += 1;
                 varray[player.get_x() - 1][player.get_y()] -= 1;
